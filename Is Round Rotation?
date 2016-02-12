@@ -1,0 +1,27 @@
+//The two strings are compared two check if they are the round rotation of each other i.e. "abc" is the round rotation of "cab".
+
+
+public static int IsRoundRotation(String s1, String s2)
+	{
+		int len1 = s1.length();
+		int len2 = s2.length();
+		int index = 0;
+		int tempIndex = 0;
+		int result = 1;
+		
+		for(int i = 0; i < len2; i++)
+		{
+			index = s1.indexOf(s2.charAt(i));
+			if(i == 0)
+				tempIndex = index;
+			else
+				if(tempIndex != index)
+					result = -1;
+			if (tempIndex == len1 - 1)
+				tempIndex = 0;
+			else
+				tempIndex++;
+		}
+		
+		return result;
+	}
