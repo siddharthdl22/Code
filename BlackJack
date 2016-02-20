@@ -1,0 +1,18 @@
+// Create a program that behaves like a blackjack game result
+// Return the number which is closer to 21
+// Return 0 is both go over 21
+
+public int blackjack(int a, int b) {
+  int rs = 0;
+  if(a > 21 && b > 21)
+    rs = 0;
+  else if(a > 21)
+    rs = b;
+  else  if(b > 21)
+    rs = a;
+  else if(21 - a < 21 - b)
+    rs = a;
+  else if(21 - b < 21 - a)
+    rs = b;
+  return rs;
+}
