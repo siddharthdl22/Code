@@ -1,0 +1,39 @@
+// The quantity of 1 kg chocolate bars is given as small
+// The quantity of 5 kg chocolate bars is given as big
+// The required weight of chocolate bar is given as goal
+// Write a code to identify that the required weight could be produced from the given chocolate bars.
+// Output -1 if the combination is not possible to achieve.
+  
+public int makeChocolate(int small, int big, int goal) {
+  int rs = 0;
+  if(goal > (big * 5) + small)
+    rs = -1;
+  else
+  {
+    int bigCf = 0;
+    int smallCf = 0;
+    int diff = 0;
+    for(int i = 0; i <= big; i++)
+    {
+      if(i * 5 <= goal)
+        bigCf = i;
+      else
+        break;
+    }
+    diff = goal - (bigCf * 5);
+    if(diff == 0)
+      rs = 0;
+    for(int i = 0; i <= small; i++)
+    {
+      if(i <= diff)
+        smallCf = i;
+      else
+        break;
+    }
+    if(goal == (bigCf * 5) + (smallCf * 1))
+      rs = smallCf;
+    else
+      rs = -1;
+  }
+  return rs;
+}
