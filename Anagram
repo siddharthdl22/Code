@@ -1,0 +1,49 @@
+public static void Anagram(){
+		Scanner sc=new Scanner(System.in);
+        String A=sc.next();
+        String B=sc.next();
+        boolean ret = false;
+        if(A.length() == B.length())
+            ret = isAnagram(A,B);
+        if(ret)System.out.println("Anagrams");
+        else System.out.println("Not Anagrams");
+	}
+	public static boolean isAnagram(String A, String B) 
+	{
+	       A = A.toLowerCase();
+	       B = B.toLowerCase();
+		     boolean ret = false;
+	       HashMap<Character, Integer> mapA = new HashMap<Character, Integer>();
+	       HashMap<Character, Integer> mapB = new HashMap<Character, Integer>();
+	       int newValue = 0;
+	       for(int i = 0; i < A.length(); i++)
+	       {
+	            if (mapA.containsKey(A.charAt(i)))
+				      {
+					      newValue = mapA.get(A.charAt(i)) + 1;
+					      mapA.put((A.charAt(i)), newValue);
+				      }
+				      else if(!mapA.containsKey(A.charAt(i)))
+				      {
+				      	mapA.put((A.charAt(i)), 1);
+				      }
+	            if (mapB.containsKey(B.charAt(i)))
+				      {
+					      newValue = mapB.get(B.charAt(i)) + 1;
+					      mapB.put((B.charAt(i)), newValue);
+				      }
+				      else if(!mapB.containsKey(B.charAt(i)))
+				      {
+					      mapB.put((B.charAt(i)), 1);
+				      }
+	       }
+	       int counter = 0;
+	       for(int i = 0; i < A.length(); i++)
+	       {
+	           if(mapA.get(A.charAt(i)) == mapB.get(A.charAt(i)))
+	               counter++;
+	       }
+	       if(counter == A.length())
+	           ret = true;
+	       return ret;
+	}
