@@ -1,0 +1,18 @@
+//Print the nth number in the Fibonacci Series
+
+public static int PrintFibonacciNumber(int n)
+	{
+		int[] a = new int[n];
+		for(int i = 0; i < n; i++)
+		{
+			if(i == 0 || i == 1)
+			{
+				a[i] = 1;
+			}
+			else
+			{
+				a[i] = a[i - 1] + a[i - 2];
+			}
+		}
+		return a[n - 1];
+	}
