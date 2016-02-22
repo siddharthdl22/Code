@@ -1,0 +1,38 @@
+// In a 6 x 6 array, find the hourglass that has the maximum sum
+// Hourglass is represented as below
+// x x x
+//   x
+// x x x
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int arr[][] = new int[6][6];
+        for(int arr_i=0; arr_i < 6; arr_i++){
+            for(int arr_j=0; arr_j < 6; arr_j++){
+                arr[arr_i][arr_j] = in.nextInt();
+            }
+        }
+        int maxSum = 0;
+        int sum = 0;
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                for(int k = i; k < i + 3; k++)
+                {
+                    for(int l = j; l < j + 3; l++)
+                    {
+                        if(!((k == i + 1 && l == j) || (k == i + 1 && l == j + 2)))
+                        	sum = sum + arr[k][l];
+                    }
+                }
+                if(sum > maxSum)
+                    maxSum = sum;
+                sum = 0;
+            }
+        }
+        System.out.println(maxSum);
+    }
+}
