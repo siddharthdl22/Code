@@ -1,0 +1,26 @@
+// Return the head of the linked list after adding the input node in the tail position.
+
+public class MyLinkedList{
+
+Node Insert(Node head,int data) {
+    Node lastNode = new Node();
+    lastNode.data = data;
+    lastNode.next = null;
+    if(head != null)
+    {
+        if(head.next != null)
+        {
+            Node nextNode = head.next;
+            while(nextNode.next != null)
+                nextNode = nextNode.next;
+            nextNode.next = lastNode;
+        }
+        else
+            head.next = lastNode;
+    }
+    else
+        head = lastNode; 
+    return head;
+}
+
+}
