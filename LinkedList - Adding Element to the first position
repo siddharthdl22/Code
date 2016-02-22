@@ -1,0 +1,22 @@
+//Return the head of the linked list after adding the given inout to the head position.
+
+class Node{
+  int data;
+  Node next;
+}
+
+Node Insert(Node head,int x) {
+    Node firstNode = new Node();
+    firstNode.data = x;
+    if(head != null)
+    {
+        firstNode.next = head;
+        head = firstNode;
+    }
+    else
+    {
+        firstNode.next = null;
+        head = firstNode;
+    }
+    return head;
+}
