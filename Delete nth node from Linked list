@@ -1,0 +1,36 @@
+// Input the head node and the delete position.
+
+Node Delete(Node head, int position) {
+  // Complete this method
+  if(head != null)
+  {
+      Node pNode = null;
+      Node cNode = head;
+      Node nNode = head.next;
+      int count = 0;
+      if(nNode != null && position > 0)
+      {
+          while(nNode != null && count != position)
+          {
+              pNode = cNode;
+              cNode = nNode;
+              nNode = nNode.next;
+              count++;
+          }
+          pNode.next = nNode;
+      }
+      else if(nNode != null && position == 0)
+      {
+          head = nNode;
+      }
+      else if(nNode == null && position == 0)
+      {
+          head = null;
+      }
+  }
+  else
+  {
+      head = null;
+  }
+  return head;
+}
