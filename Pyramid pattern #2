@@ -1,9 +1,9 @@
 // Input the height of the pattern
 // Print the pattern
-//     #
-//    ##
-//   ###
-//  ####
+// #
+// ##
+// ###
+// ####
 // #####
 
 public static void Pyramid(int n)
