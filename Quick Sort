@@ -1,0 +1,40 @@
+public static void QuickSort(int[] arr)
+	{
+		int start = 0;
+		int end = arr.length - 1;
+		QuickSortHelper(arr, start, end);
+		for(int i = 0; i < arr.length; i++)
+		{
+			System.out.print(arr[i] + " ");
+		}
+	}
+	
+	public static void QuickSortHelper(int[] arr, int start, int end)
+	{
+		if(start < end)
+		{
+			int mid = QuickSortPartition(arr, start, end);
+			QuickSortHelper(arr, start, mid - 1);
+			QuickSortHelper(arr, mid + 1, end);
+		}
+	}
+	
+	public static int QuickSortPartition(int[] arr, int start, int end)
+	{
+		int key = arr[end];
+		int i = start - 1;
+		for(int j = start; j < end; j++)
+		{
+			if(arr[j] <= key)
+			{
+				i++;
+				int temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+		int temp = arr[end];
+		arr[end] = arr[i + 1];
+		arr[i + 1] = temp;
+		return i + 1;
+	}
