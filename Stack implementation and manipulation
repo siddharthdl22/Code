@@ -1,0 +1,76 @@
+// Input : 1 xx --- Add xx to the top of the stack
+// Input : 2    --- Delete the head element of the stack
+// Input : 3    --- Print the largest element of the stack
+
+public class MyStack {
+
+    public static void main(String[] args) {
+        Node head = null;
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        for(int i = 0; i <= N; i++)
+        {
+            String s = sc.nextLine();
+            if(s.length() == 1)
+            {
+                int type = Integer.parseInt(s);
+                if(type == 2)
+                {
+                    //Delete the head element from stack
+                    if(head != null)
+                    {
+                        Node nextNode = head.next;
+                        if(nextNode != null)
+                            head = nextNode;
+                        else
+                            head = null;
+                    }
+                }
+                else if(type == 3)
+                {
+                    // Get the largest element from the stack and print it
+                    if(head != null)
+                    {
+                        int largest = head.data;
+                        Node nextNode = head.next;
+                        if(nextNode != null)
+                        {
+                            while(nextNode != null)
+                            {
+                                if(nextNode.data > largest)
+                                    largest = nextNode.data;
+                                nextNode = nextNode.next;
+                            }
+                        }
+                        System.out.println(largest);
+                    }
+                }
+            }
+            else if(s.length() > 1 && (s.split(" ")).length > 1)
+            {
+                String[] ss = s.split(" ");
+                int type = Integer.parseInt(ss[0]);
+                int num = Integer.parseInt(ss[1]);
+                //Insert in the stack
+                Node newNode = new Node();
+                newNode.data = num;
+                if(head == null)
+                {
+                    newNode.next = null;
+                    head = newNode;
+                }
+                else
+                {
+                    newNode.next = head;
+                    head = newNode;
+                }
+            }
+        }
+    }
+}
+
+class Node
+{
+    int data;
+    Node next;
+}
