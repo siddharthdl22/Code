@@ -1,0 +1,45 @@
+class MyArray
+{
+	public void FindKthElementOfArray(int[] arr, int k)
+	{
+		int start = 0;
+		int end = arr.length - 1;
+		QuickSort(arr, start, end, k);
+	}
+
+	public void QuickSort(int[] arr, int start, int end, int k)
+	{
+		if(start < end)
+		{
+			int mid = Partition(arr, start, end);
+			if(mid > k)
+				QuickSort(arr, start, mid - 1, k);
+			else if(mid < k)
+				QuickSort(arr, mid + 1, end, k);
+			else
+				System.out.println(arr[mid]);
+		}
+		else if(start == end && start == k)
+			System.out.println(arr[start]);
+	}
+
+	public int Partition(int[] arr, int start, int end)
+	{
+		int key = arr[end];
+		int i = start - 1;
+		for(int j = start; j <= end; j++)
+		{
+			if(arr[j] < key)
+			{
+				i++;
+				int temp = arr[j];
+				arr[j] = arr[i];
+				arr[i] = temp;
+			}
+		}
+		int t = arr[end];
+		arr[end] = arr[i + 1];
+		arr[i + 1] = t;
+		return i + 1;
+	}
+}
