@@ -1,0 +1,40 @@
+class CoinProblem
+{
+	public void FindHeavierCoin(int[] arr)
+	{
+		int start = 0;
+		int end = arr.length - 1;
+		FindHeavierCoinHelper(arr, start, end);
+	}
+
+	public void FindHeavierCoinHelper(int[] arr, int start, int end)
+	{
+		if(start < end)
+		{
+			int mid = (start + end) / 2;
+			int leftHalfWeight = 0;
+			int rightHalfWeight = 0;
+			for(int i = start; i <= mid; i++)
+			{
+				leftHalfWeight = leftHalfWeight + arr[i];
+			}
+			for(int i = mid + 1; i <= end; i++)
+			{
+				rightHalfWeight = rightHalfWeight + arr[i];
+			}
+			if(leftHalfWeight > rightHalfWeight)
+			{
+				FindHeavierCoinHelper(arr, start, mid);
+			}
+			else if(leftHalfWeight < rightHalfWeight)
+			{
+				FindHeavierCoinHelper(arr, mid + 1, end);
+			}
+			else
+				System.out.println("All coins are of equal weights");
+			
+		}
+		else
+			System.out.println("The heavier coin is at " + start + "th index");
+	}
+}
