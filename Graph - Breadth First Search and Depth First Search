@@ -1,0 +1,179 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class MyGraph {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//Creating the nodes
+		Node n0 = new Node(0);
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		nodes.add(n0);
+		nodes.add(n1);
+		nodes.add(n2);
+		nodes.add(n3);
+		
+		//Creating graph
+		Graph g = new Graph(4, nodes);
+        g.AddEdges(n0, n1);
+        g.AddEdges(n0, n3);
+        g.AddEdges(n1, n3);
+        g.AddEdges(n2, n2);
+        g.AddEdges(n3, n0);
+        g.AddEdges(n3, n2);
+        
+        // Running BFS from vertex 2
+        System.out.println("Breadth First Search");
+        g.BFS(n3.key);
+        for(int i = 0; i < 4; i++)
+        {
+        	int tempParent = -1;
+        	if(g.nodes.get(i).parent != null)
+        		tempParent = g.nodes.get(i).parent.key;
+        	System.out.println("Node : " + g.nodes.get(i).key + "    Distance : " + g.nodes.get(i).distance + "    Parent : " + tempParent);
+        }
+        
+        System.out.println("\n\n");
+        System.out.println("Depth First Search");
+        g.DFS(n3.key);
+        for(int i = 0; i < 4; i++)
+        {
+        	int tempParent = -1;
+        	if(g.nodes.get(i).parent != null)
+        		tempParent = g.nodes.get(i).parent.key;
+        	System.out.println("Node : " + g.nodes.get(i).key + "    Start : " + g.nodes.get(i).start + "    Finish : " + g.nodes.get(i).finish + "    Parent : " + tempParent);
+        }
+	}
+}
+
+class Node
+{
+	int key;
+	int distance;
+	int start;
+	int finish;
+	Node parent;
+	String color;
+	
+	public Node(int k)
+	{
+		key = k;
+	}
+}
+
+class Graph
+{
+	int vertices;
+	LinkedList<Node>[] adjacencyList;
+	ArrayList<Node> nodes;
+	int time;
+	
+	public Graph(int v, ArrayList<Node> n)
+	{
+		vertices = v;
+		nodes = n;
+		adjacencyList = new LinkedList[v];
+		for(int i = 0; i < v; i++)
+		{
+			adjacencyList[i] = new LinkedList<Node>();
+		}
+	}
+	
+	public void AddEdges(Node source, Node destination)
+	{
+		adjacencyList[source.key].add(destination);
+	}
+	
+	public void BFS(int source)
+	{
+		// Initialize the nodes
+		for(int i = 0; i < vertices; i++)
+		{
+			if(i != source)
+			{
+				nodes.get(i).distance = 999999999;
+				nodes.get(i).color = "white";
+				nodes.get(i).parent = null;
+			}
+		}
+		nodes.get(source).color = "gray";
+		nodes.get(source).distance = 0;
+		nodes.get(source).parent = null;
+		
+		//Create a queue to hold the processing status
+		LinkedList<Node> myQueue = new LinkedList<Node>();
+		
+		//Making the source node as "Visited"
+		myQueue.add(nodes.get(source));
+		
+		while(myQueue.size() > 0)
+		{
+			Node current = myQueue.poll();
+			
+			Iterator<Node> i = adjacencyList[current.key].listIterator();
+			while(i.hasNext())
+			{
+				Node temp = i.next();
+				if(temp.color.equals("white"))
+				{
+					temp.color = "gray";
+					temp.distance = current.distance + 1;
+					temp.parent = current;
+					myQueue.add(temp);
+				}
+			}
+			current.color = "black";
+		}
+	}
+	
+	public void DFS(int source)
+	{
+		// Initialize the nodes
+		for(int i = 0; i < vertices; i++)
+		{
+			if(i != source)
+			{
+				nodes.get(i).start = 999999999;
+				nodes.get(i).finish = 999999999;
+				nodes.get(i).color = "white";
+				nodes.get(i).parent = null;
+			}
+		}
+		time = 0;
+		
+		nodes.get(source).parent = null;
+		DFSVisit(nodes.get(source));
+		
+		for(int i = 0; i < vertices; i++)
+		{
+			if(nodes.get(i).color.equals("white"))
+				DFSVisit(nodes.get(i));
+		}
+	}
+	
+	public void DFSVisit(Node current)
+	{
+		time++;
+		current.start = time;
+		current.color = "gray";
+		
+		Iterator<Node> i = adjacencyList[current.key].listIterator();
+		while(i.hasNext())
+		{
+			Node temp = i.next();
+			if(temp.color.equals("white"))
+			{
+				temp.parent = current;
+				DFSVisit(temp);
+			}
+		}
+		current.color = "black";
+		time++;
+		current.finish = time;
+	}
+}
