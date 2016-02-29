@@ -1,0 +1,25 @@
+class StringInteger
+{
+	public void ConvertStringToInteger(String input)
+	{
+		int sign = 1;
+		int total = 0;
+		try
+		{
+			for(int i = 0; i < input.length(); i++)
+			{
+				if(i == 0 && input.charAt(0) == '-')
+				{
+					sign = -1;
+					i++;
+				}
+				total = (total * 10) + Integer.parseInt(input.substring(i, i + 1)); 
+			}
+			System.out.println(total * sign);
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getStackTrace().toString());
+		}
+	}
+}
