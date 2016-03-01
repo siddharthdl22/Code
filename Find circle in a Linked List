@@ -1,0 +1,104 @@
+class Node
+{
+	int data;
+	Node next;
+
+	public Node()
+	{
+	}
+
+	public Node(int d, Node n)
+	{
+		data = d;
+		next = n;
+	}
+} 
+
+class MyLinkedList
+{
+	Node head;
+	
+	public MyLinkedList(Node h)
+	{
+		head = h;
+	}
+	public void FindCircle(Node head)
+	{
+		if(head != null)
+		{
+
+			Node nextNode = head.next;
+			if(nextNode != null)
+			{
+				Node secondNextNode = nextNode.next; 
+				if(secondNextNode != null)
+				{
+					boolean circlePresent = false;
+					int i = head.data;
+					int j = head.data;
+					nextNode = head;
+					secondNextNode = head;
+					while(nextNode != null && secondNextNode != null)
+					{
+						nextNode = nextNode.next;
+						secondNextNode = secondNextNode.next.next;
+						i = nextNode.data;
+						j = secondNextNode.data;
+						if(i == j)
+						{
+							circlePresent = true;
+							System.out.println("There is a circle in the linked list");
+							break;
+						}
+					}
+					if(circlePresent)
+					{
+						int counter1 = 1;
+						nextNode = nextNode.next; 
+						while(nextNode != null && nextNode.data !=  secondNextNode.data)
+						{
+							nextNode = nextNode.next;
+							counter1++;
+						}
+						i = 1;
+						j = i + counter1;
+						int counter2 = 1;
+						nextNode = head;
+						while(nextNode != null)
+						{
+							nextNode = nextNode.next;
+							counter2++;
+							if(counter2 == j)
+								break;
+						}
+						secondNextNode = nextNode;
+						nextNode = head;
+						int counter3 = 1;
+						while(nextNode.data != secondNextNode.data)
+						{
+							nextNode = nextNode.next;
+							secondNextNode = secondNextNode.next;
+							counter3++;
+						}	
+						System.out.println("The circle starts at index : " + counter3);
+					}
+				}
+				else
+				{
+					if(nextNode.next == head)
+						System.out.println("The linked list has a circle");
+					else
+						System.out.println("The linked list doesn’t has any circle");
+				}
+			} 
+			else
+			{
+				System.out.println("There is only one element in the linked list");
+			}
+		}
+		else
+		{
+			System.out.println("The list is empty");
+		}
+	}
+}
