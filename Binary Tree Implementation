@@ -1,3 +1,12 @@
+//This file includes the following
+// 1. PreOrder Traversal
+// 2. InOrder Traversal
+// 3. PostOrder Traversal
+// 4. Insert Element to the Binary Tree
+// 5. Search element in the Binary Tree
+// 6. Delete element from the Binary Tree
+// 7. Finding a unique path between two nodes in the Binary Tree (Lowest Common Ancestor)
+
 class Node
 {
 	int data;
@@ -211,5 +220,90 @@ class MyBinaryTree
 		{
 			System.out.println("The Tree is empty");
 		}
-	}	
+	}
+	
+	public void PathFinder(Node node1, Node node2)
+	{
+		boolean pathExists = false;
+		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+		Node tempParent1 = node1.Parent;
+		if(tempParent1 != null)
+		{
+			while(tempParent1 != null)
+			{
+				hm.put(tempParent1.data, 1);
+				tempParent1 = tempParent1.Parent;
+			}
+		}
+
+		Node tempParent2 = node2.Parent;
+		if(tempParent2 != null)
+		{
+			while(tempParent2 != null)
+			{
+				if(hm.get(tempParent2.data) != null)
+				{
+					pathExists = true;
+					break;
+				}
+				tempParent2 = tempParent2.Parent;
+			}
+		}
+		if(pathExists)
+		{	
+			Node commonParent = tempParent2; 
+			if(node1.data > node2.data)
+			{
+				Node pointerNode = node2;
+				while(pointerNode.data != commonParent.data)
+				{
+					System.out.print(pointerNode.data + " ");
+					pointerNode = pointerNode.Parent;
+				}
+				System.out.print(commonParent.data + " ");
+				pointerNode = pointerNode.LeftChild;
+				while(pointerNode.data != node1.data)
+				{
+					System.out.print(pointerNode.data + " ");
+					if(pointerNode.data < node1.data)
+					{
+						pointerNode = pointerNode.RightChild;
+					}
+					else
+					{
+						pointerNode = pointerNode.LeftChild;
+					}
+				}
+				System.out.print(node1.data + " ");
+			}
+			else
+			{
+				Node pointerNode = node1;
+				while(pointerNode.data != commonParent.data)
+				{
+					System.out.print(pointerNode .data + " ");
+					pointerNode = pointerNode.Parent;
+				}
+				System.out.print(commonParent.data + " ");
+				pointerNode = pointerNode.RightChild;
+				while(pointerNode.data != node2.data)
+				{
+					System.out.print(pointerNode.data + " ");
+					if(pointerNode.data < node2.data)
+					{
+						pointerNode = pointerNode.RightChild;
+					}
+					else
+					{
+						pointerNode = pointerNode.LeftChild;
+					}
+				}
+				System.out.println(node2.data + " ");	
+			}
+		}
+		else
+		{
+			System.out.println("No Path Exists");
+		}
+	}
 }
