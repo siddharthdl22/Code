@@ -1,0 +1,46 @@
+// Given a magazine string
+// See if the note string can be created by the magazine string
+
+class MyNotes
+{
+	public boolean CanCreateNote(String magazine, String ransomNote)
+	{
+		boolean canCreate = true;
+		HashMap<Character, Integer> hm = new HashMap<Character, Integer>();
+		for(int i = 0; i < magazine.length(); i++)
+		{
+			char tempChar = magazine.charAt(i);
+			if(hm.get(tempChar) == null)
+			{
+				hm.put(tempChar, 1);
+			}
+			else
+			{
+				int tempValue = hm.get(tempChar);
+				tempValue++;
+				hm.put(tempChar, tempValue);
+			}
+		}
+		for(int i = 0; i < ransomNote.length(); i++)
+		{
+			char tempChar = ransomNote.charAt(i);
+			if(hm.get(tempChar) != null)
+			{
+				int tempValue = hm.get(tempChar);
+				tempValue--;
+				if(tempValue < 0)
+				{
+					canCreate = false;
+					break;
+				}
+				hm.put(tempChar, tempValue);
+			}
+			else
+			{
+				canCreate = false;
+				break;
+			}
+		}
+		return canCreate;
+	}
+}
