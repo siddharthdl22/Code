@@ -1,0 +1,215 @@
+class Node
+{
+	int data;
+	Node Parent;
+	Node LeftChild;
+	Node RightChild;
+	
+	public Node(int d)
+	{
+		data = d;
+	}
+}
+class MyBinaryTree
+{
+	Node root;
+	public void PreOrderTraversal(Node root)
+	{
+		if(root != null)
+		{
+			System.out.print(root.data + " ");
+			PreOrderTraversal(root.LeftChild);
+			PreOrderTraversal(root.RightChild);
+		}
+	}
+
+	public void InOrderTraversal(Node root)
+	{
+		if(root != null)
+		{
+			InOrderTraversal(root.LeftChild);
+			System.out.print(root.data + " ");
+			InOrderTraversal(root.RightChild);
+		}
+	}
+
+	public void PostOrderTraversal(Node root)
+	{
+		if(root != null)
+		{
+			PostOrderTraversal(root.LeftChild);
+			PostOrderTraversal(root.RightChild);
+			System.out.print(root.data + " ");
+		}
+	}
+
+	public void SearchElement(Node root, int k)
+	{
+		if(root != null)
+		{
+			if(root.data == k)
+			{
+				System.out.println(root.data);
+			}
+			else if(root.data < k)
+			{
+				Node right = root.RightChild;
+				if(right != null)
+				{
+					SearchElement(right, k);
+				}
+				else
+					System.out.println("-1");
+			}
+			else if(root.data > k)
+			{	
+				Node left = root.LeftChild;
+				if(left != null)
+				{
+					SearchElement(left, k);
+				}
+				else
+				{
+					System.out.println("-1");
+				}
+			}
+		}
+		else
+			System.out.println("-1");
+	}
+
+	public void InsertElement(Node root, int k)
+	{
+		Node current = new Node(k);
+		if(root != null)
+		{
+			if(root.data == k)
+			{
+				System.out.println("Node already present in the Tree");
+			}
+			else if(root.data > k)
+			{
+				Node left = root.LeftChild;
+				if(left != null)
+					InsertElement(left, k);
+				else
+				{
+					root.LeftChild = current;
+					current.Parent = root;
+				}
+			}
+			else if(root.data < k)
+			{
+				Node right = root.RightChild;
+				if(right != null)
+					InsertElement(right, k);
+				else
+				{
+					root.RightChild = current;
+					current.Parent = root;
+				}
+			}			
+		}
+		else
+		{
+			root = current;
+		}
+	}
+
+	public void DeleteElement(Node root, int k)
+	{
+		if(root != null)
+		{
+			if(root.data == k)
+			{
+				Node left = root.LeftChild;
+				Node right = root.RightChild;
+				if(left == null && right == null)
+				{
+					if(root.Parent.data > k)
+					{
+						root.Parent.LeftChild = null;
+					}
+					else
+					{
+						root.Parent.RightChild = null;
+					}
+				}
+				else if(left == null && right != null)
+				{
+					if(root.Parent.data > k)
+					{
+						root.Parent.LeftChild = right;
+					}
+					else
+					{
+						root.Parent.RightChild = right;
+					}
+					right.Parent = root.Parent;
+				}
+				else if(left != null && right == null)
+				{
+					if(root.Parent.data > k)
+					{
+						root.Parent.LeftChild = left;
+					}
+					else
+					{
+						root.Parent.RightChild = left;
+					}
+					left.Parent = root.Parent;
+				}
+				else if(left != null && right != null)
+				{
+					Node temp = right.LeftChild;
+					if(temp != null)
+					{
+						Node tempParent = right;
+						while(temp != null)
+						{
+							tempParent = temp;
+							temp = temp.LeftChild;
+						}
+						root.data = tempParent.data;
+						tempParent.Parent.LeftChild = null;
+					}
+					else
+					{
+						if(root.Parent.data > k)
+						{
+							root.Parent.LeftChild = right;
+							right.Parent = root.Parent;
+						}
+						else
+						{
+							root.Parent.RightChild = right;
+							right.Parent = root.Parent;	
+						}
+						right.LeftChild = left;
+						left.Parent = right;
+					}
+				}
+			}
+			else if(root.data > k)
+			{
+				Node left = root.LeftChild;
+				if(left != null)
+					DeleteElement(left, k);
+				else
+					System.out.println("-1");
+			}
+			else if(root.data < k)
+			{
+				Node right = root.RightChild;
+				if(right != null)
+					DeleteElement(right, k);
+				else
+					System.out.println("-1");
+			}
+		}
+		else
+		{
+			System.out.println("The Tree is empty");
+		}
+	}	
+}
