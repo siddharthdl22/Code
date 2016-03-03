@@ -1,0 +1,31 @@
+class MyNumber
+{
+  public void FindPrimeFactors(int n)
+  {
+    boolean isPrime = true;
+    // check if 2 is the prime factor
+    while(n % 2 == 0)
+    {
+      System.out.print(2 + " ");
+      n = n / 2;
+      isPrime = false;
+    }
+    
+    //Check for other prime factors
+    //The prime factors that are left are odd otherwise they can be further divided by 2 so we can increse the counter by 2
+    //Need to check only until the square root of the number
+    for(int i = 3; i <= Math.sqrt(n); i = i + 2)
+    {
+      isPrime = false;
+      while(n % i == 0)
+      {
+        System.out.print(i + " ");
+        n = n / i;
+      }
+    }
+    
+    //if the number is prime
+    if(isPrime && n > 2)
+      System.out.print(n)
+  }
+}
