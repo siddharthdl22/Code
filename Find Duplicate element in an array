@@ -1,0 +1,31 @@
+class MyArray
+{
+  public void FindFirstDuplicate(int[] arr)
+  {
+    HashMap<Integer, String> hm = new HashMap<Integer, String>();
+    for(int i = 0; i < arr.length; i++)
+    {
+      if(hm.get(arr[i]) == null)
+      {
+        hm.put(arr[i], "11");
+      }
+      else
+      {
+        int temp = Integer.parseInt(hm.get(arr[i]).substring(0, 1));
+        temp++;
+        String tempString = temp + hm.get(arr[i]).substring(1, 2);
+        hm.put(arr[i], tempString);
+      }
+    }
+    Iterator<String> it = hm.values().iterator();
+    int temp = 0;
+    String tempString = "";
+    while(it.hasNext())
+    {
+      tempString = it.next();
+      if(Integer.parseInt(tempString.substring(0, 1)) == 1)
+        temp = Integer.parseInt(tempString.substring(1, 2));
+    }
+    System.out.println("First duplicate integer is : " + temp);
+  }
+}
