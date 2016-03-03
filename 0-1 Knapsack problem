@@ -1,0 +1,52 @@
+class MyKnapSack
+{
+	public void FindMaxValue(int[] wt, int[] val, int maxWeight)
+	{
+		int[][] T = new int[wt.length][maxWeight + 1];
+		for(int i = 0; i < wt.length; i++)
+		{
+			for(int j = 0; j <= maxWeight; j++)
+			{
+				if(i > 0)
+				{
+					if(j < wt[i])
+						T[i][j] = T[i - 1][j];
+					else
+					{
+						if(T[i - 1][j] > val[i] + T[i - 1][j - wt[i]])
+							T[i][j] = T[i - 1][j];
+						else
+							T[i][j] = val[i] + T[i - 1][j - wt[i]];
+					}
+				}
+				else
+				{
+					if(j < wt[i])
+					 	T[i][j] = 0;
+					else
+						T[i][j] = val[i];
+				}
+			}
+		}
+		System.out.println("The max value that can be achieved : " + T[wt.length - 1][maxWeight]);
+		int j = maxWeight;
+		int i = wt.length - 1;
+		while(j > 0)
+		{
+			if(i > 0)
+			{
+				if(j - wt[i] >= 0 && T[i][j] == T[i - 1][j - wt[i]] + val[i])
+				{
+					System.out.print(wt[i] + " ");
+					j = j - wt[i];
+				}
+			}
+			else if(i == 0 && T[i][j] == val[i])
+			{
+				System.out.print(wt[i] + " ");
+				j = j - wt[i];
+			}
+			i--;
+		}	
+	}
+}
