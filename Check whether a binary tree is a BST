@@ -1,0 +1,23 @@
+	
+class Node
+{
+  int data;
+  Node LeftChild;
+  Node RightChild;
+}
+
+class MyBinaryTree
+{
+	boolean isBinary = true;
+	public boolean IsBinaryTree(Node root, int minLimit, int maxLimit)
+	{
+		if(root != null)
+		{
+			if(root.data < minLimit || root.data > maxLimit)
+				isBinary = false;
+			IsBinaryTree(root.LeftChild, minLimit, root.data);
+			IsBinaryTree(root.RightChild, root.data, maxLimit);			
+		}
+		return isBinary;
+	}
+}
