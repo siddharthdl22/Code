@@ -12,13 +12,6 @@ class MyBinaryTree
     if(root == null)
       return 0;
     else
-    {
-      int tempLeft = FindDepth(root.left);
-      int tempRight = FindDepth(root.right);
-      int max = tempLeft;
-      if(max < tempRight)
-        max = tempRight;
-      return max + 1;
-    }
+      return Math.max(FindDepth(root.left), FindDepth(root.right)) + 1;
   }
 }
