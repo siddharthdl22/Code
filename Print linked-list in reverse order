@@ -1,6 +1,16 @@
 // Input the head of the linked list
-// Print hte linked list in reverse order
+// Print the linked list in reverse order
 
+//Better Approach
+Node ReversePrint(Node head)
+{
+  if(head == null)
+    return;
+  ReverePrint(head.next);
+  System.out.print(head.data + " ");
+}
+
+// OK approach
 void ReversePrint(Node head) {
   if(head != null)
   {
