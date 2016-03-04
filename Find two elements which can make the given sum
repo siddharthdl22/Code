@@ -1,0 +1,28 @@
+class MyArray
+{
+	public void FindSum(int[] arr, int sum)
+	{
+		int j = -1;
+		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+		for(int i = 0; i < arr.length; i++)
+		{
+			if(hm.containsKey(arr[i]))
+			{
+				j = i;
+				break;
+			}
+			else
+			{
+				hm.put(sum - arr[i], arr[i]);
+			}
+		}
+		if(j != -1)
+		{
+			System.out.println(hm.get(arr[j]) + " " + arr[j]);
+		}
+		else
+		{
+			System.out.println("No such pair of numbers exists");
+		}
+	}
+}
