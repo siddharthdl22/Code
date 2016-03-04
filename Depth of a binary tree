@@ -1,0 +1,24 @@
+class Node
+{
+  int data;
+  Node left;
+  Node right;
+}
+
+class MyBinaryTree
+{
+  public int FindDepth(Node root)
+  {
+    if(root == null)
+      return 0;
+    else
+    {
+      int tempLeft = FindDepth(root.left);
+      int tempRight = FindDepth(root.right);
+      int max = tempLeft;
+      if(max < tempRight)
+        max = tempRight;
+      return max + 1;
+    }
+  }
+}
