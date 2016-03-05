@@ -1,0 +1,36 @@
+class MyIterator implements Iterator<String>
+{
+	ArrayList<String> al;
+	int index = 0;
+	
+	public MyIterator(ArrayList<String> arrayList)
+	{
+		al = arrayList;
+		index = 0;
+	}
+	
+	@Override
+	public boolean hasNext() {
+		return (al.size() != index);
+	}
+
+	@Override
+	public String next() {
+		if(hasNext())
+		{
+			return al.get(index++);
+		}
+		else
+		{
+			throw new NoSuchElementException();
+		}
+	}
+
+	@Override
+	public void remove() {
+		if(index > 0)
+		{
+			al.remove(--index);
+		}
+	}	
+}
