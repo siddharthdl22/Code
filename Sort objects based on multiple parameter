@@ -1,0 +1,91 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class MyCollectionApi {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<MySong> al = new ArrayList<MySong>();
+		
+		MySong ms1 = new MySong("BSong", "DTitle", 10);
+		MySong ms2 = new MySong("ASong", "BTitle", 40);
+		MySong ms3 = new MySong("CSong", "ATitle", 20);
+		MySong ms4 = new MySong("DSong", "CTitle", 30);
+		
+		al.add(ms1);
+		al.add(ms2);
+		al.add(ms3);
+		al.add(ms4);
+		
+		System.out.println("Unsorted data");
+		for(MySong ms: al)
+		{
+			System.out.println(ms.title + " " + ms.singer + " " + ms.playedTimes);
+		}
+		
+		System.out.println("\n\n");
+		Collections.sort(al, MySong.CompareOnTitle);
+		System.out.println("Sorted based on Song's Title");
+		for(MySong ms: al)
+		{
+			System.out.println(ms.title + " " + ms.singer + " " + ms.playedTimes);
+		}
+		
+		System.out.println("\n\n");
+		System.out.println("Sorted based on Song's Singer");
+		Collections.sort(al, MySong.CompareOnSinger);
+		for(MySong ms: al)
+		{
+			System.out.println(ms.title + " " + ms.singer + " " + ms.playedTimes);
+		}
+		
+		System.out.println("\n\n");
+		System.out.println("Sorted based on Song's PlayedTimes");
+		Collections.sort(al, MySong.CompareOnPlayedTimes);
+		for(MySong ms: al)
+		{
+			System.out.println(ms.title + " " + ms.singer + " " + ms.playedTimes);
+		}
+	}
+}
+
+
+class MySong
+{
+	String title;
+	String singer;
+	int playedTimes;
+	
+	public MySong(String t, String s, int pt)
+	{
+		title = t;
+		singer = s;
+		playedTimes = pt;
+	}
+	
+	public static Comparator<MySong> CompareOnTitle = new Comparator<MySong>()
+	{
+		public int compare(MySong s1, MySong s2)
+		{
+			return s1.title.compareTo(s2.title);
+		}
+	};
+	
+	public static Comparator<MySong> CompareOnSinger = new Comparator<MySong>()
+	{
+		public int compare(MySong s1, MySong s2)
+		{
+			return s1.singer.compareTo(s2.singer);
+		}
+	};
+	
+	public static Comparator<MySong> CompareOnPlayedTimes = new Comparator<MySong>()
+	{
+		public int compare(MySong s1, MySong s2)
+		{
+			return s1.playedTimes-s2.playedTimes;
+		}
+	};
+}
