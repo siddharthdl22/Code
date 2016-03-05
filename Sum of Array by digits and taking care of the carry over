@@ -1,0 +1,23 @@
+class MySum
+{
+	public void GetSum(int[] arr1, int[] arr2)
+	{
+		int carry = 0;
+		int len1 = arr1.length;
+		int len2 = arr2.length;
+		ArrayList<Integer> al = new ArrayList<Integer>();
+		while(len1 > 0 && len2 > 0)
+		{
+			int temp = arr1[len1 - 1] + arr2[len2 - 1];
+			al.add((temp % 10) + carry);
+			if(temp > 9)
+				carry = 1;
+			else
+				carry = 0;
+			len1--;
+			len2--;
+		}
+		for(int i = al.size() - 1; i >= 0; i--)
+			System.out.print(al.get(i));
+	}
+}
