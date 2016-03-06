@@ -1,0 +1,42 @@
+
+public void ReversStringeVowels(String s)
+{
+HashMap<Character, Character> hm = new HashMap<Character, Character>();
+		hm.put('a', 'a');
+		hm.put('e', 'e');
+		hm.put('i', 'i');
+		hm.put('o', 'o');
+		hm.put('u', 'u');
+		String s = "United States";
+		int i = 0;
+		int j = s.length() - 1;
+		char[] ch = s.toLowerCase().toCharArray();
+		while(i != j)
+		{
+			if(hm.containsKey(ch[i]) && hm.containsKey(ch[j]))
+			{
+				char temp = ch[j];
+				ch[j] = ch[i];
+				ch[i] = temp;
+				i++;
+				j--;
+			}
+			else if(hm.containsKey(ch[i]))
+			{
+				j--;
+			}
+			else if(hm.containsKey(ch[j]))
+			{
+				i++;
+			}
+			else
+			{
+				i++;
+				j--;
+			}
+		}
+		s = "";
+		for(char c : ch)
+			s = s + c;
+		System.out.println(s);
+}
