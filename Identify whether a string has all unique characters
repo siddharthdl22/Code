@@ -1,0 +1,48 @@
+class Unique
+{
+	public boolean UniqueChars(String str)
+	{
+		boolean containsDuplicate = true;
+		HashMap<Character, Character> hm = new HashMap<Character, Character>();
+		char[] ch = str.toLowerCase().toCharArray();
+		for(int i = 0; i < str.length(); i++)
+		{
+			if(!hm.containsKey(ch[i]))
+				hm.put(ch[i], ch[i]);
+			else
+			{
+				containsDuplicate = false;
+				break;
+			}
+		}
+		return containsDuplicate;
+	}
+	
+	public boolean UniqueCharsWithoutExtraSpace(String str)
+	{
+		boolean containsDuplicate = true;
+		char[] ch = str.toLowerCase().toCharArray();
+		for(int i = 0; i < str.length(); i++)
+		{
+			for(int j = i + 1; j < str.length(); j++)
+			{
+				if(ch[i] == ch[j])
+				{
+					containsDuplicate = false;
+				}
+			}
+		}
+		return containsDuplicate;
+	}
+	
+	public boolean UniqueCharsWithoutExtraTimeAndSpace(String str) {
+	    int checker = 0;
+	    for (int i = 0; i < str.length(); ++i) {
+	        int val = str.charAt(i) - 'a';
+	        if ((checker & (1 << val)) > 0)
+	            return false;
+	        checker |= (1 << val);
+	    }
+	    return true;
+	}
+}
