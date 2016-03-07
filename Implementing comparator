@@ -1,0 +1,37 @@
+class MySong
+{
+	String title;
+	String singer;
+	int playedTimes;
+	
+	public MySong(String t, String s, int pt)
+	{
+		title = t;
+		singer = s;
+		playedTimes = pt;
+	}
+	
+	public static Comparator<MySong> CompareOnTitle = new Comparator<MySong>()
+	{
+		public int compare(MySong s1, MySong s2)
+		{
+			return s1.title.compareTo(s2.title);
+		}
+	};
+	
+	public static Comparator<MySong> CompareOnSinger = new Comparator<MySong>()
+	{
+		public int compare(MySong s1, MySong s2)
+		{
+			return s1.singer.compareTo(s2.singer);
+		}
+	};
+	
+	public static Comparator<MySong> CompareOnPlayedTimes = new Comparator<MySong>()
+	{
+		public int compare(MySong s1, MySong s2)
+		{
+			return s1.playedTimes-s2.playedTimes;
+		}
+	};
+}
