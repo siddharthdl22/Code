@@ -1,0 +1,36 @@
+public class MyQueue
+{
+    Stack<Integer> st1 = null;
+    Stack<Integer> str2 = null;
+    
+    public MyQueue()
+    {
+        st1 = new Stack<Integer>();
+        st2 = new Stack<Integer>();
+    }
+    
+    public int MyPop()
+    {
+        int result = -1;
+        if(!st1.isEmpty())
+        {
+            while(!st1.isEmpty())
+            {
+                int temp = st1.pop();
+                st2.push(temp);
+            }
+            result = st2.push();
+            while(!st2.isEmpty())
+            {
+                int temp = st2.pop();
+                st1.push(temp);
+            }
+        }
+        return result;
+    }
+    
+    public void MyPush(int n)
+    {
+        st1.push(n);
+    }
+}
