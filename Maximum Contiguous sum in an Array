@@ -1,0 +1,17 @@
+public void MaxSumContiguous()
+{
+		int sumCurrent = 0;
+		int sumMax = 0;
+		int[] arr = {-2, -3, 4, -1, -2, 1, 5, -3};
+		for(int i = 0; i < arr.length; i++)
+		{
+			sumCurrent = sumCurrent + arr[i];
+			
+			if(sumCurrent < 0)
+				sumCurrent = 0;
+			
+			if(sumCurrent > sumMax)
+				sumMax = sumCurrent;
+		}
+		System.out.println(sumMax);
+}
