@@ -1,0 +1,22 @@
+class Duplicate
+{
+	public StringBuilder RemoveDuplicate(String input)
+	{
+		if(input.length() > 1)
+		{
+			HashMap<Character, Character> hm = new HashMap<Character, Character>();
+			StringBuilder ch = new StringBuilder();
+			char[] inputChar = input.toCharArray();
+			for(int i = 0; i < input.length(); i++)
+			{
+				if(!hm.containsKey(inputChar[i]))
+				{
+					hm.put(inputChar[i], inputChar[i]);
+					ch.append(inputChar[i]);
+				}
+			}
+			return ch;
+		}
+		return null;
+	}
+}
