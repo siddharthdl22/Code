@@ -1,24 +1,44 @@
 // Input the sorted array and the search element
-// Out the index where the search element exists otherwise return -1
+// Output whether the element is present in the list
+class MyBinarySearch
+{
+    public boolean BinarySearchRecursive(int[] arr, int element)
+    {
+        int start = 0;
+        int end = arr.length - 1;
+        return BinarySearchHelper(arr, start, end, element);
+    }
+    
+    public boolean BinarySearchHelper(int[] arr, int start, int end, int element)
+    {
+    	if(start <= end)
+    	{
+    		int mid = (start + end) / 2;
+    		if(arr[mid] == element)
+    			return true;
+    		else if(arr[mid] < element)
+    			return BinarySearchHelper(arr, mid + 1, end, element);
+    		else if(arr[mid] > element)
+    			return BinarySearchHelper(arr, start, mid - 1, element);
+    	}
+    	return false;
+    }
 
-	public static int BinarySearch(int[] arr, int n)
-	{
-		int rs = -1;
-		int start = 0;
-		int end = arr.length - 1;
-		int mid = 0;  
-		while(start < end)
-		{
-			mid = (start + end)/2;
-			if(arr[mid] ==  n)
-			{
-				rs = mid;
-				break;
-			}
-			else if(arr[mid] > n)
-				end = mid - 1;
-			else if(arr[mid] < n)
-				start = mid + 1;
-		}
-		return rs;
-	}
+    
+    public boolean BinarySearchIterative(int[] arr, int element)
+    {
+        int start = 0;
+        int end = arr.length - 1;
+        while(start <= end)
+        {
+            int mid = (start + end) / 2;
+            if(arr[mid] == element)
+                return true;
+            else if(arr[mid] > element)
+                end = mid - 1;
+            else if(arr[mid] < element)
+                start = mid + 1;
+        }
+        return false;
+    }
+}
