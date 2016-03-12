@@ -8,16 +8,24 @@ class Node
 
 class MyBinaryTree
 {
-	boolean isBinary = true;
-	public boolean IsBinaryTree(Node root, int minLimit, int maxLimit)
+	public boolean IsBalancedTree(Node head, int minLimit, int maxLimit)
 	{
-		if(root != null)
+		if(head != null)
 		{
-			if(root.data < minLimit || root.data > maxLimit)
-				isBinary = false;
-			IsBinaryTree(root.LeftChild, minLimit, root.data);
-			IsBinaryTree(root.RightChild, root.data, maxLimit);			
+			if(head.val < minLimit || head.val > maxLimit)
+				return false;
+			else
+			{
+				if(head.left != null && head.right != null)
+					return IsBalancedTree(head.left, minLimit, head.val) && IsBalancedTree(head.right, head.val, maxLimit);
+				else if(head.left != null)
+					return IsBalancedTree(head.left, minLimit, head.val);
+				else if(head.right != null)
+					return IsBalancedTree(head.right, head.val, maxLimit);
+				else 
+					return true;
+			}
 		}
-		return isBinary;
+		return false;
 	}
 }
