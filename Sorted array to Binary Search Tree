@@ -1,0 +1,81 @@
+class Node
+{
+	int val;
+	Node left;
+	Node right;
+	
+	public Node(int v)
+	{
+		val = v;
+	}
+}
+
+class Tree
+{
+	Node head;
+	
+	public boolean ConvertSortedArrayToBST(int[] arr)
+	{
+		boolean isSuccess = false;
+		int start = 0;
+		int end = arr.length - 1;
+		int count = ArrayToTreeHelper(arr, start, end, 0);
+		if(count == arr.length)
+			isSuccess = true;
+		return isSuccess;
+	}
+	
+	private int ArrayToTreeHelper(int[] arr, int start, int end, int count)
+	{
+		if(start <= end)
+		{
+			int mid = (start + end) / 2;
+			if(InsertToTree(arr[mid]))
+				count++;
+			count = ArrayToTreeHelper(arr, start, mid - 1, count);
+			count = ArrayToTreeHelper(arr, mid + 1, end, count);
+		}
+		return count;
+	}
+	
+	private boolean InsertToTree(int k)
+	{
+		Node newNode = new Node(k);
+		if(head == null)
+		{
+			head = newNode;
+		}
+		else
+		{
+			Node previous = null;
+			Node current = head;
+			while(current != null)
+			{
+				if(current.val == k)
+				{
+					break;
+				}
+				else if(current.val > k)
+				{
+					previous = current;
+					current = current.left;
+				}
+				else if(current.val < k)
+				{
+					previous = current;
+					current = current.right;
+				}
+			}
+			if(current == null && previous != null)
+			{
+				if(previous.val > k)
+					previous.left = newNode;
+				else
+					previous.right = newNode;
+			}
+			else
+				return false;
+		}
+		return true;
+	}
+}
