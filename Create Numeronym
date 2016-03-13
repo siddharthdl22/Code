@@ -1,0 +1,11 @@
+class MyNumeronym
+{
+	public String ConvertToNumeronym(char[] input)
+	{
+		if(input.length > 1)
+		{
+			return input[0] + "" + (input.length - 2) + input[input.length - 1];
+		}
+		return "" + -1;
+	}
+}
