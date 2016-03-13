@@ -1,0 +1,68 @@
+class Node
+{
+	int val;
+	Node left;
+	Node right;
+	public Node(int v)
+	{
+		val = v;
+	}
+}
+
+class Tree
+{
+	Node head;
+	
+	public boolean CompareTrees(Node headA, Node headB)
+	{
+		NodeIterator itA = new NodeIterator();
+		NodeIterator itB = new NodeIterator();
+		itA.BuildIterator(headA);
+		itB.BuildIterator(headB);
+		while(itA.HasNextNode() && itB.HasNextNode())
+		{
+			if(itA.NextNode().val != itB.NextNode().val)
+				return false;
+		}
+		return !itA.HasNextNode() && !itB.HasNextNode();
+	}
+}
+
+class NodeIterator
+{
+	Stack<Node> stack;
+	
+	public NodeIterator()
+	{
+		stack = new Stack<Node>();
+	}
+	
+	public boolean HasNextNode()
+	{
+		return !stack.isEmpty();
+	}
+	
+	public void BuildIterator(Node root)
+	{
+		while(root != null)
+		{	
+			stack.push(root);
+			root = root.left;
+		}
+	}
+	
+	public Node NextNode()
+	{
+		Node temp = stack.pop();
+		Node right = temp.right;
+		if(right != null)
+		{
+			while(right != null)
+			{
+				stack.push(right);
+				right = right.left;
+			}
+		}
+		return temp;
+	}
+}
