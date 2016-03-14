@@ -1,0 +1,52 @@
+class Node
+{
+	int val;
+	Node left;
+	Node right;
+	
+	public Node(int v)
+	{
+		val = v;
+	}
+}
+
+class Tree
+{
+	public int CountValidNodes(Node head, int count)
+	{
+		if(head == null)
+			return 0;
+		else
+		{
+			if(head.left == null && head.right == null)
+			{
+				return count;
+			}
+			else if(head.left != null && head.right != null)
+			{
+				if(head.val > head.left.val && head.val > head.right.val)
+					count = count + 2;
+				else if(head.val > head.left.val || head.val < head.right.val)
+					count = count + 1;
+				count = CountValidNodes(head.left, count);
+				count = CountValidNodes(head.right, count);
+				return count;
+			}
+			else if(head.left != null)
+			{
+				if(head.val > head.left.val)
+					count = count + 1;
+				count = CountValidNodes(head.left, count);
+				return count;
+			}
+			else if(head.right != null)
+			{
+				if(head.val > head.right.val)
+					count = count + 1;
+				count = CountValidNodes(head.right, count);
+				return count;
+			}
+			return -1;
+		}
+	}
+}
