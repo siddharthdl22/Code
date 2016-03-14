@@ -1,0 +1,52 @@
+class Node
+{
+	int val;
+	Node left;
+	Node right;
+	
+	public Node(int v)
+	{
+		val = v;
+	}
+}
+
+class Tree
+{
+	
+	public LinkedList<Integer> Serialize(Node head, LinkedList<Integer> list)
+	{
+		if(head != null)
+		{
+			list.add(head.val);
+			list = Serialize(head.left, list);
+			list = Serialize(head.right, list);
+		}
+		else
+		{
+			list.add(-1);
+		}
+		return list;
+	}
+	
+	public Node Deserialize(Node head, LinkedList<Integer> list)
+	{
+		if(list.size() > 0)
+		{
+			int temp = list.poll();
+			if(temp != -1)
+			{
+				Node n = new Node(temp);
+				n.left = Deserialize(n, list);
+				n.right = Deserialize(n, list);
+				return n;
+				
+			}
+			else
+				return null;
+		}
+		else
+		{
+			return null;
+		}
+	}
+}
