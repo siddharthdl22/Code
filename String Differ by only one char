@@ -1,0 +1,28 @@
+// input string is "banana"
+// input String array is {"nab", "aweri", "banaba", "sdiu"}  should return true
+// input String array is {"nab", "aweri", "banabaa", "sdiu"}  should return false
+
+
+public boolean DifferByOneChar(String input, String[] arr)
+	{
+		boolean isValid = false;
+		for(int i = 0; i < arr.length; i++)
+		{
+			if(arr[i].length() == input.length())
+			{
+				int diffCount = 0;
+				char[] inputChar = input.toCharArray();
+				char[] arrStringChar = arr[i].toCharArray();
+				for(int j = 0; j < arr[i].length(); j++)
+				{
+					if(inputChar[j] != arrStringChar[j])
+						diffCount++;
+				}
+				if(diffCount == 1)
+					isValid = true;
+			}
+			if(isValid)
+				break;
+		}
+		return isValid;
+	}
