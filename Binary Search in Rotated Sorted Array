@@ -1,0 +1,56 @@
+// Assume the array of integers is rotated at some random element
+// Sorted array : {1, 2, 3, 4, 5, 6, 7, 8}
+// Rotated Sorted array : {4, 5, 6, 7, 8, 1, 2, 3}
+
+public int PivotBinarySearch(int[] arr, int k)
+	{
+		int position = -1;
+		int pivot = FindPivot(arr, 0, arr.length - 1);
+		if(pivot == -1)
+			BinarySearch(arr, 0, arr.length - 1, k);
+		else if(arr[pivot] == k)
+			position = pivot;
+		else if(k < arr[0])
+			position = BinarySearch(arr, pivot + 1, arr.length - 1, k);
+		else
+			position = BinarySearch(arr, 0, pivot - 1, k);
+		return position;
+	}
+	
+	public int FindPivot(int[] arr, int start, int end)
+	{
+		if(start < end)
+		{
+			int mid = (start + end) / 2;
+			if(mid < end && arr[mid] > arr[mid + 1])
+				return mid;
+			if(start < mid && arr[mid] < arr[mid - 1])
+				return mid - 1;
+			if(arr[mid] > arr[start])
+				return FindPivot(arr, mid + 1, end);
+			else
+				return FindPivot(arr, start, mid);
+		}
+		else if(start == end)
+			return start;
+		else
+			return -1;
+	}
+	
+	public int BinarySearch(int[] arr, int start, int end, int k)
+	{
+		if(start <= end)
+		{
+			int mid = (start + end) / 2;
+			if(arr[mid] == k)
+				return mid;
+			else if(arr[mid] > k)
+				return BinarySearch(arr, start, mid - 1, k);
+			else
+				return BinarySearch(arr, mid, end, k);
+		}
+		else
+		{
+			return -1;
+		}
+	}
