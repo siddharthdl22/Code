@@ -1,0 +1,29 @@
+// input string : "agbdba"
+// output : 10 ("abdba")
+
+public void LongestSubsequencePalindrome(char[] input)
+	{
+		int n = input.length;
+		int[][] t = new int[n][n];
+		
+		for(int i = 0; i < n; i++)
+		{
+			t[i][i] = 1;
+		}
+		
+		for(int l = 2; l <= n; l++)
+		{
+			for(int i = 0; i < n - l + 1; i++)
+			{
+				int j = i + l - 1;
+				if(l == 2 && input[i] == input[j])
+					t[i][j] = 2;
+				else if(input[i] == input[j])
+					t[i][j] = t[i + 1][j] + 2;
+				else
+					t[i][j] = Math.max(t[i + 1][j], t[i][j - 1]);
+			}
+		}
+		
+		System.out.println(t[0][n - 1]);
+	}
